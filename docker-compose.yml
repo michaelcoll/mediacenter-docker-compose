@@ -84,37 +84,6 @@ services:
             - 'sonarr'
         restart: unless-stopped
 
-    lychee-database:
-        image: mariadb
-        container_name: 'lychee-database'
-        environment:
-            - 'MYSQL_ROOT_PASSWORD=root'
-            - 'MYSQL_DATABASE=lychee'
-            - 'MYSQL_USER=lychee'
-            - 'MYSQL_PASSWORD=lychee'
-        networks:
-            - 'lychee'
-        volumes:
-            - '/opt/lychee/data:/var/lib/mysql'
-        restart: unless-stopped
-
-    lychee:
-        image: linuxserver/lychee
-        container_name: 'lychee'
-        environment:
-            - 'PUID=1105'
-            - 'PGID=2002'
-        volumes:
-            - '/opt/lychee/config:/config'
-            - '/mnt2/photos:/pictures'
-        ports:
-            - '8080:80'
-        networks:
-            - 'lychee'
-        depends_on:
-            - 'lychee-database'
-        restart: unless-stopped
-
     plex:
         image: plexinc/pms-docker
         container_name: 'plex'
@@ -147,6 +116,5 @@ networks:
     transmission:
     sonarr:
     radarr:
-    lychee:
     plex:
 
