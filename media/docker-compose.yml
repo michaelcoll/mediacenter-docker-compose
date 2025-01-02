@@ -81,6 +81,27 @@ services:
       - "prowlarr"
     restart: unless-stopped
 
+  overseerr:
+    image: linuxserver/overseerr:latest
+    container_name: "sonarr"
+    volumes:
+      - "/mnt/ssd/containers/config/overseerr:/config"
+    ports:
+      - "5055:5055"
+    networks:
+      - "sonarr"
+      - "radarr"
+    #      - "plex"
+    environment:
+      PGID: 100
+      PUID: 1012
+      TZ: "Europe/Paris"
+    depends_on:
+      - "sonarr"
+      - "radarr"
+    #      - "plex"
+    restart: unless-stopped
+
 networks:
   transmission:
   prowlarr:
