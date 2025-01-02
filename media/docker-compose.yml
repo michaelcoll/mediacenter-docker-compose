@@ -18,5 +18,49 @@ services:
       TZ: "Europe/Paris"
     restart: unless-stopped
 
+  radarr:
+    image: linuxserver/radarr
+    container_name: "radarr"
+    volumes:
+      - "/mnt/ssd/containers/config/radarr:/config"
+      - "/mnt/tank2/shares/download:/downloads"
+      - "/mnt/tank2/shares/videos/Films/Films:/movies"
+    ports:
+      - "7878:7878"
+    networks:
+      - "transmission"
+      - "radarr"
+    #      - "plex"
+    environment:
+      PGID: 100
+      PUID: 1004
+      TZ: "Europe/Paris"
+    depends_on:
+      - "transmission"
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:develop
+    container_name: "sonarr"
+    volumes:
+      - "/mnt/ssd/containers/config/sonarr:/config"
+      - "/mnt/tank2/shares/download:/downloads"
+      - "/mnt/tank2/shares/videos/Séries:/tv"
+    ports:
+      - "8989:8989"
+    networks:
+      - "transmission"
+      - "sonarr"
+    #      - "plex"
+    environment:
+      PGID: 100
+      PUID: 1005
+      TZ: "Europe/Paris"
+    links:
+      - "transmission"
+    restart: unless-stopped
+
 networks:
   transmission:
+  sonarr:
+  radarr:

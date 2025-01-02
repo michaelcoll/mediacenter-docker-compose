@@ -1,67 +1,5 @@
 version: "3"
 services:
-  transmission:
-    image: linuxserver/transmission
-    container_name: "transmission"
-    volumes:
-      - "/opt/transmission/config:/config"
-      - "/mnt2/downloads:/downloads"
-    ports:
-      - "9091:9091"
-      - "51413:51413"
-      - "51413:51413/udp"
-    networks:
-      - "transmission"
-    environment:
-      PGID: 2002
-      PUID: 993
-      TZ: "Europe/Paris"
-    restart: unless-stopped
-
-  radarr:
-    image: linuxserver/radarr
-    container_name: "radarr"
-    volumes:
-      - "/opt/radarr/config:/config"
-      - "/mnt2/downloads:/downloads"
-      - "/mnt2/videos/Films:/movies"
-      - "/etc/localtime:/etc/localtime:ro"
-    ports:
-      - "7878:7878"
-    networks:
-      - "transmission"
-      - "radarr"
-      - "plex"
-    environment:
-      PGID: 2002
-      PUID: 1102
-      TZ: "Europe/Paris"
-    depends_on:
-      - "transmission"
-    restart: unless-stopped
-
-  sonarr:
-    image: linuxserver/sonarr
-    container_name: "sonarr"
-    volumes:
-      - "/opt/sonarr/config:/config"
-      - "/mnt2/downloads:/downloads"
-      - "/mnt2/videos/Séries:/movies"
-      - "/etc/localtime:/etc/localtime:ro"
-    ports:
-      - "8989:8989"
-    networks:
-      - "transmission"
-      - "sonarr"
-      - "plex"
-    environment:
-      - "PGID=2002"
-      - "PUID=1103"
-      - "TZ=Europe/Paris"
-    links:
-      - "transmission"
-    restart: unless-stopped
-
   bazarr:
     image: linuxserver/bazarr
     container_name: "bazarr"
@@ -113,7 +51,4 @@ services:
     restart: unless-stopped
 
 networks:
-  transmission:
-  sonarr:
-  radarr:
   plex:
