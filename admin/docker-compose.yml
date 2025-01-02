@@ -17,5 +17,21 @@ services:
       TZ: "Europe/Paris"
     restart: unless-stopped
 
+  tautulli:
+    image: tautulli/tautulli:latest
+    container_name: "tautulli"
+    volumes:
+      - "/mnt/ssd/containers/config/tautulli:/config"
+    ports:
+      - "8181:8181"
+    networks:
+      - "tautulli"
+    environment:
+      PGID: 100
+      PUID: 1009
+      TZ: "Europe/Paris"
+    restart: unless-stopped
+
 networks:
   homarr:
+  tautulli:
