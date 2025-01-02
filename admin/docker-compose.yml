@@ -1,0 +1,21 @@
+version: "3"
+services:
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: "homarr"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/mnt/ssd/containers/config/homarr/configs:/app/data/configs"
+      - "/mnt/ssd/containers/config/homarr/data:/data"
+    ports:
+      - "7575:7575"
+    networks:
+      - "homarr"
+    environment:
+      PGID: 100
+      PUID: 1013
+      TZ: "Europe/Paris"
+    restart: unless-stopped
+
+networks:
+  homarr:
