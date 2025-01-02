@@ -1,120 +1,119 @@
-version: '3'
+version: "3"
 services:
-    transmission:
-        image: linuxserver/transmission
-        container_name: 'transmission'
-        volumes:
-            - '/opt/transmission/config:/config'
-            - '/mnt2/downloads:/downloads'
-        ports:
-            - '9091:9091'
-            - '51413:51413'
-            - '51413:51413/udp'
-        networks:
-            - 'transmission'
-        environment:
-            PGID: 2002
-            PUID: 993
-            TZ: 'Europe/Paris'
-        restart: unless-stopped
+  transmission:
+    image: linuxserver/transmission
+    container_name: "transmission"
+    volumes:
+      - "/opt/transmission/config:/config"
+      - "/mnt2/downloads:/downloads"
+    ports:
+      - "9091:9091"
+      - "51413:51413"
+      - "51413:51413/udp"
+    networks:
+      - "transmission"
+    environment:
+      PGID: 2002
+      PUID: 993
+      TZ: "Europe/Paris"
+    restart: unless-stopped
 
-    radarr:
-        image: linuxserver/radarr
-        container_name: 'radarr'
-        volumes:
-            - '/opt/radarr/config:/config'
-            - '/mnt2/downloads:/downloads'
-            - '/mnt2/videos/Films:/movies'
-            - '/etc/localtime:/etc/localtime:ro'
-        ports:
-            - '7878:7878'
-        networks:
-            - 'transmission'
-            - 'radarr'
-            - 'plex'
-        environment:
-            PGID: 2002
-            PUID: 1102
-            TZ: 'Europe/Paris'
-        depends_on:
-            - 'transmission'
-        restart: unless-stopped
+  radarr:
+    image: linuxserver/radarr
+    container_name: "radarr"
+    volumes:
+      - "/opt/radarr/config:/config"
+      - "/mnt2/downloads:/downloads"
+      - "/mnt2/videos/Films:/movies"
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - "7878:7878"
+    networks:
+      - "transmission"
+      - "radarr"
+      - "plex"
+    environment:
+      PGID: 2002
+      PUID: 1102
+      TZ: "Europe/Paris"
+    depends_on:
+      - "transmission"
+    restart: unless-stopped
 
-    sonarr:
-        image: linuxserver/sonarr
-        container_name: 'sonarr'
-        volumes:
-            - '/opt/sonarr/config:/config'
-            - '/mnt2/downloads:/downloads'
-            - '/mnt2/videos/Séries:/movies'
-            - '/etc/localtime:/etc/localtime:ro'
-        ports:
-            - '8989:8989'
-        networks:
-            - 'transmission'
-            - 'sonarr'
-            - 'plex'
-        environment:
-            - 'PGID=2002'
-            - 'PUID=1103'
-            - 'TZ=Europe/Paris'
-        links:
-            - 'transmission'
-        restart: unless-stopped
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: "sonarr"
+    volumes:
+      - "/opt/sonarr/config:/config"
+      - "/mnt2/downloads:/downloads"
+      - "/mnt2/videos/Séries:/movies"
+      - "/etc/localtime:/etc/localtime:ro"
+    ports:
+      - "8989:8989"
+    networks:
+      - "transmission"
+      - "sonarr"
+      - "plex"
+    environment:
+      - "PGID=2002"
+      - "PUID=1103"
+      - "TZ=Europe/Paris"
+    links:
+      - "transmission"
+    restart: unless-stopped
 
-    bazarr:
-        image: linuxserver/bazarr
-        container_name: 'bazarr'
-        environment:
-            - 'PUID=1103'
-            - 'PGID=2002'
-            - 'TZ=Europe/Paris'
-        networks:
-            - 'radarr'
-            - 'sonarr'
-            - 'plex'
-        volumes:
-            - '/opt/bazarr/config:/config'
-            - '/mnt2/videos/Films:/movies'
-            - '/mnt2/videos/Séries:/tv'
-        ports:
-            - '6767:6767'
-        depends_on:
-            - 'radarr'
-            - 'sonarr'
-        restart: unless-stopped
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: "bazarr"
+    environment:
+      - "PUID=1103"
+      - "PGID=2002"
+      - "TZ=Europe/Paris"
+    networks:
+      - "radarr"
+      - "sonarr"
+      - "plex"
+    volumes:
+      - "/opt/bazarr/config:/config"
+      - "/mnt2/videos/Films:/movies"
+      - "/mnt2/videos/Séries:/tv"
+    ports:
+      - "6767:6767"
+    depends_on:
+      - "radarr"
+      - "sonarr"
+    restart: unless-stopped
 
-    plex:
-        image: plexinc/pms-docker
-        container_name: 'plex'
-        environment:
-            - 'TZ=Europe/Paris'
-            - 'PLEX_UID=994'
-            - 'PLEX_GID=2002'
-            - 'PLEX_CLAIM=claim-zpwdDg8UXFzzQoyLfqfC'
-            - 'ADVERTISE_IP=http://192.168.0.25:32400/'
-        volumes:
-            - '/opt/plex/config:/config'
-            - '/mnt2/videos/Films:/movies'
-            - '/mnt2/videos/Séries:/tv'
-            - '/mnt2/musics:/musics'
-        ports:
-            - '32400:32400/tcp'
-            - '1900:1900/udp'
-            - '3005:3005/tcp'
-            - '8324:8324/tcp'
-            - '32410:32410/udp'
-            - '32412:32412/udp'
-            - '32413:32413/udp'
-            - '32414:32414/udp'
-            - '32469:32469/tcp'
-        networks:
-            - 'plex'
-        restart: unless-stopped
+  plex:
+    image: plexinc/pms-docker
+    container_name: "plex"
+    environment:
+      - "TZ=Europe/Paris"
+      - "PLEX_UID=994"
+      - "PLEX_GID=2002"
+      - "PLEX_CLAIM=claim-zpwdDg8UXFzzQoyLfqfC"
+      - "ADVERTISE_IP=http://192.168.0.25:32400/"
+    volumes:
+      - "/opt/plex/config:/config"
+      - "/mnt2/videos/Films:/movies"
+      - "/mnt2/videos/Séries:/tv"
+      - "/mnt2/musics:/musics"
+    ports:
+      - "32400:32400/tcp"
+      - "1900:1900/udp"
+      - "3005:3005/tcp"
+      - "8324:8324/tcp"
+      - "32410:32410/udp"
+      - "32412:32412/udp"
+      - "32413:32413/udp"
+      - "32414:32414/udp"
+      - "32469:32469/tcp"
+    networks:
+      - "plex"
+    restart: unless-stopped
 
 networks:
-    transmission:
-    sonarr:
-    radarr:
-    plex:
-
+  transmission:
+  sonarr:
+  radarr:
+  plex:

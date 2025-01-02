@@ -1,0 +1,22 @@
+version: "3"
+services:
+  transmission:
+    image: linuxserver/transmission:version-3.00-r5
+    container_name: "transmission"
+    volumes:
+      - "/mnt/ssd/containers/config/transmission:/config"
+      - "/mnt/tank2/shares/download:/downloads"
+    ports:
+      - "9091:9091"
+      - "51413:51413"
+      - "51413:51413/udp"
+    networks:
+      - "transmission"
+    environment:
+      PGID: 100
+      PUID: 1003
+      TZ: "Europe/Paris"
+    restart: unless-stopped
+
+networks:
+  transmission:
