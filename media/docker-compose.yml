@@ -47,7 +47,7 @@ services:
       - "transmission"
       - "radarr"
       - "prowlarr"
-    #      - "plex"
+      - "plex"
     environment:
       PGID: 100
       PUID: 1004
@@ -71,7 +71,7 @@ services:
       - "transmission"
       - "sonarr"
       - "prowlarr"
-    #      - "plex"
+      - "plex"
     environment:
       PGID: 100
       PUID: 1005
@@ -83,7 +83,7 @@ services:
 
   overseerr:
     image: linuxserver/overseerr:latest
-    container_name: "sonarr"
+    container_name: "overseerr"
     volumes:
       - "/mnt/ssd/containers/config/overseerr:/config"
     ports:
@@ -91,7 +91,7 @@ services:
     networks:
       - "sonarr"
       - "radarr"
-    #      - "plex"
+      - "plex"
     environment:
       PGID: 100
       PUID: 1012
@@ -99,7 +99,32 @@ services:
     depends_on:
       - "sonarr"
       - "radarr"
-    #      - "plex"
+      - "plex"
+    restart: unless-stopped
+
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: "plex"
+    environment:
+      PGID: 100
+      PUID: 1005
+      TZ: "Europe/Paris"
+      VERSION: "latest"
+      PLEX_CLAIM: "claim-k7XxtdKj_x9o3geL9yAH"
+    volumes:
+      - "/mnt/ssd/containers/config/plex:/config"
+      - "/mnt/ssd/containers/config/plex/transcode:/transcode"
+      - "/mnt/tank2/shares/videos:/data"
+      - "/mnt/tank2/shares/musics:/musics"
+    ports:
+      - "32400:32400/tcp"
+      - "32410:32410/udp"
+      - "32412:32412/udp"
+      - "32413:32413/udp"
+      - "32414:32414/udp"
+      - "32469:32469/tcp"
+    networks:
+      - "plex"
     restart: unless-stopped
 
 networks:
@@ -107,3 +132,4 @@ networks:
   prowlarr:
   sonarr:
   radarr:
+  plex:
