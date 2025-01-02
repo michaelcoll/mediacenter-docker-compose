@@ -46,6 +46,7 @@ services:
       - "/mnt/ssd/containers/config/sonarr:/config"
       - "/mnt/tank2/shares/download:/downloads"
       - "/mnt/tank2/shares/videos/Séries:/tv"
+      - "/mnt/tank2/shares/videos/Anime:/anime"
     ports:
       - "8989:8989"
     networks:
