@@ -18,6 +18,21 @@ services:
       TZ: "Europe/Paris"
     restart: unless-stopped
 
+  prowlarr:
+    image: linuxserver/prowlarr:develop
+    container_name: "prowlarr"
+    volumes:
+      - "/mnt/ssd/containers/config/prowlarr:/config"
+    ports:
+      - "9696:9696"
+    networks:
+      - "prowlarr"
+    environment:
+      PGID: 100
+      PUID: 1010
+      TZ: "Europe/Paris"
+    restart: unless-stopped
+
   radarr:
     image: linuxserver/radarr
     container_name: "radarr"
@@ -30,6 +45,7 @@ services:
     networks:
       - "transmission"
       - "radarr"
+      - "prowlarr"
     #      - "plex"
     environment:
       PGID: 100
@@ -37,6 +53,7 @@ services:
       TZ: "Europe/Paris"
     depends_on:
       - "transmission"
+      - "prowlarr"
     restart: unless-stopped
 
   sonarr:
@@ -52,16 +69,19 @@ services:
     networks:
       - "transmission"
       - "sonarr"
+      - "prowlarr"
     #      - "plex"
     environment:
       PGID: 100
       PUID: 1005
       TZ: "Europe/Paris"
-    links:
+    depends_on:
       - "transmission"
+      - "prowlarr"
     restart: unless-stopped
 
 networks:
   transmission:
+  prowlarr:
   sonarr:
   radarr:
