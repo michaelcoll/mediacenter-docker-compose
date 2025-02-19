@@ -107,7 +107,7 @@ services:
     container_name: "plex"
     environment:
       PGID: 100
-      PUID: 1005
+      PUID: 1002
       TZ: "Europe/Paris"
       VERSION: "latest"
       PLEX_CLAIM: "claim-k7XxtdKj_x9o3geL9yAH"
@@ -125,6 +125,34 @@ services:
       - "32469:32469/tcp"
     networks:
       - "plex"
+    restart: unless-stopped
+
+  tdarr:
+    container_name: "tdarr"
+    image: ghcr.io/haveagitgat/tdarr:latest
+    ports:
+      - "8265:8265" # webUI port
+      - "8266:8266" # server port
+    environment:
+      TZ: Europe/London
+      PUID: 1014
+      PGID: 100
+      UMASK_SET: 002
+      serverIP: 0.0.0.0
+      serverPort: 8266
+      webUIPort: 8265
+      internalNode: true
+      inContainer: true
+      ffmpegVersion: 6
+      nodeName: NasNode
+    volumes:
+      - "/mnt/ssd/containers/config/tdarr/server:/app/server"
+      - "/mnt/ssd/containers/config/tdarr/configs:/app/configs"
+      - "/mnt/ssd/containers/config/tdarr/logs:/app/logs"
+      - "/mnt/tank2/shares/videos:/media"
+      - "/mnt/ssd/containers/config/tdarr_transcode_cache:/temp"
+    networks:
+      - "tdarr"
     restart: unless-stopped
 
 networks:
