@@ -161,3 +161,4 @@ networks:
   sonarr:
   radarr:
   plex:
+  tdarr:
