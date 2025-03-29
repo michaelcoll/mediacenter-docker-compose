@@ -110,7 +110,7 @@ services:
       PUID: 1002
       TZ: "Europe/Paris"
       VERSION: "latest"
-      PLEX_CLAIM: "claim-k7XxtdKj_x9o3geL9yAH"
+      PLEX_CLAIM: "claim-zf9rE1ugbyqNx868nxxT"
     volumes:
       - "/mnt/ssd/containers/config/plex:/config"
       - "/mnt/ssd/containers/config/plex/transcode:/transcode"
@@ -134,7 +134,7 @@ services:
       - "8265:8265" # webUI port
       - "8266:8266" # server port
     environment:
-      TZ: Europe/London
+      TZ: "Europe/Paris"
       PUID: 1014
       PGID: 100
       UMASK_SET: 002
