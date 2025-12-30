@@ -5,8 +5,7 @@ services:
     container_name: "homarr"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "/mnt/ssd/containers/config/homarr/configs:/app/data/configs"
-      - "/mnt/ssd/containers/config/homarr/data:/data"
+      - "/mnt/ssd/containers/config/homarr/appdata:/appdata"
     ports:
       - "7575:7575"
     networks:
@@ -15,6 +14,7 @@ services:
       PGID: 100
       PUID: 1013
       TZ: "Europe/Paris"
+      SECRET_ENCRYPTION_KEY: "fefe736909fd39feb6c13640eb8b5cdd23254594feb06173ff7d0ce343eb7588"
     restart: unless-stopped
 
   tautulli:
