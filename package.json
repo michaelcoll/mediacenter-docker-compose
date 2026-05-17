@@ -11,7 +11,7 @@
         "url": "https://github.com/michaelcoll/mediacenter-kube/issues"
     },
     "devDependencies": {
-        "husky": "^8.0.0",
+        "husky": "^9.1.7",
         "prettier": "2.8.8",
         "pretty-quick": "^3.1.3"
     },
