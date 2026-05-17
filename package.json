@@ -18,8 +18,7 @@
     "scripts": {
         "lint": "prettier ./",
         "lint:check": "pnpm lint --check",
-        "lint:write": "pnpm lint --write",
-        "prepare": "husky install"
+        "lint:write": "pnpm lint --write"
     },
     "lint-staged": {
         "*.{md,yml}": "prettier --write"
