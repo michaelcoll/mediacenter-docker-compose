@@ -28,6 +28,7 @@ services:
     networks:
       - "prowlarr"
       - "transmission"
+      - "flaresolverr"
     environment:
       PGID: 100
       PUID: 1010
@@ -46,6 +47,8 @@ services:
     ports:
       - "${PORT:-8191}:8191"
     restart: unless-stopped
+    networks:
+      - "flaresolverr"
 
   radarr:
     image: linuxserver/radarr
@@ -145,6 +148,7 @@ services:
 networks:
   transmission:
   prowlarr:
+  flaresolverr:
   sonarr:
   radarr:
   plex:
