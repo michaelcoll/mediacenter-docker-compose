@@ -28,6 +28,7 @@ Docker compose descriptor for my media center.
 | 8265  | Tdarr WebUI            |
 | 8266  | Tdarr Server Port      |
 | 8543  | MineOS                 |
+| 8191  | Flaresolverr           |
 | 8989  | Sonarr                 |
 | 9091  | Transmission           |
 | 9696  | Prowlarr               |
