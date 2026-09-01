@@ -145,10 +145,27 @@ services:
       - "plex"
     restart: unless-stopped
 
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: 1015:100
+    ports:
+      - "8096:8096/tcp"
+      - "7359:7359/udp"
+    volumes:
+      - "/mnt/ssd/containers/config/jellyfin:/config"
+      - "/mnt/ssd/containers/config/jellyfin/cache:/cache"
+      - "/mnt/tank2/shares/videos:/media"
+      - "/mnt/tank2/shares/musics:/musics"
+    networks:
+      - "jellyfin"
+    restart: "unless-stopped"
+
 networks:
   transmission:
   prowlarr:
   flaresolverr:
   sonarr:
   radarr:
+  jellyfin:
   plex:
