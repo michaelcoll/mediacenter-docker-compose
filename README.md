@@ -16,21 +16,24 @@ Docker compose descriptor for my media center.
 | Oveseerr     | 1012 |
 | Homarr       | 1013 |
 | Tdarr        | 1014 |
+| Jellyfin     | 1015 |
 
 ## The port used by each app installed
 
-| Port  | App                    |
-| ----- | ---------------------- |
-| 5055  | Overseerr              |
-| 7575  | Homarr                 |
-| 7878  | Radarr                 |
-| 8181  | Tautulli               |
-| 8265  | Tdarr WebUI            |
-| 8266  | Tdarr Server Port      |
-| 8543  | MineOS                 |
-| 8191  | Flaresolverr           |
-| 8989  | Sonarr                 |
-| 9091  | Transmission           |
-| 9696  | Prowlarr               |
-| 25565 | MineOS (TCP/UDP)       |
-| 51413 | Transmission (TCP/UDP) |
+| Port     | App                    |
+| -------- | ---------------------- |
+| 5055     | Overseerr              |
+| 7359/udp | Jellyfin               |
+| 7575     | Homarr                 |
+| 7878     | Radarr                 |
+| 8096/tcp | Jellyfin               |
+| 8181     | Tautulli               |
+| 8265     | Tdarr WebUI            |
+| 8266     | Tdarr Server Port      |
+| 8543     | MineOS                 |
+| 8191     | Flaresolverr           |
+| 8989     | Sonarr                 |
+| 9091     | Transmission           |
+| 9696     | Prowlarr               |
+| 25565    | MineOS (TCP/UDP)       |
+| 51413    | Transmission (TCP/UDP) |
