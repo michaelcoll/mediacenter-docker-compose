@@ -1,7 +1,7 @@
 version: "3"
 services:
   transmission:
-    image: linuxserver/transmission:version-3.00-r5
+    image: linuxserver/transmission:latest
     container_name: "transmission"
     volumes:
       - "/mnt/ssd/containers/config/transmission:/config"
